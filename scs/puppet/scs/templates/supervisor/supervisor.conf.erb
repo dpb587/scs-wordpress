@@ -1,0 +1,8 @@
+[supervisord]
+directory = /scs
+logfile = /scs/var/log/supervisord/supervisord.log
+nodaemon = true
+pidfile = /scs/var/run/supervisord/supervisord.pid
+
+[include]
+files = /scs/etc/supervisor.d/*.conf

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+chown -R scs:scs /scs/mnt/wordpress-uploads
+
+exec /usr/local/bin/supervisord -c /scs/etc/supervisor.conf
