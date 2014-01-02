@@ -166,6 +166,7 @@ class scs (
         "${wordpress_docroot}/wp-config.php" :
             ensure => file,
             content => template('scs/wordpress/wp-config.php.erb'),
+            mode => 0644,
             ;
     }
 

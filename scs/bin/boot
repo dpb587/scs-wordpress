@@ -5,7 +5,7 @@ set -e
 PUPPET_SOURCE="$1"
 
 if [ '' != "$PUPPET_SOURCE" ] ; then
-    PUPPET_SOURCE="default"
+    PUPPET_SOURCE="scs/config/default.pp"
 fi
 
 if (echo "$PUPPET_SOURCE" | grep -E '.+:[0-9]+' > /dev/null) ; then
@@ -15,7 +15,7 @@ elif (echo "$PUPPET_SOURCE" | grep -E 'https?://' > /dev/null) ; then
     /usr/bin/puppet apply --modulepath=/scs/scs/puppet:/etc/puppet/modules:/usr/share/puppet/modules /tmp/puppet.pp
     /bin/rm /tmp/puppet.pp
 else
-    /usr/bin/puppet apply --modulepath=/scs/scs/puppet:/etc/puppet/modules:/usr/share/puppet/modules /scs/scs/config/$PUPPET_SOURCE.pp
+    /usr/bin/puppet apply --modulepath=/scs/scs/puppet:/etc/puppet/modules:/usr/share/puppet/modules /scs/$PUPPET_SOURCE
 fi
 
 CONTINUE_CMD="$2"
