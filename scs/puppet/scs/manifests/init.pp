@@ -12,6 +12,8 @@ class scs (
 
     $wordpress_version = '3.7.1',
 
+    $wordpress_globals = {},
+
     $wordpress_token_auth_key = 'put your unique phrase here',
     $wordpress_token_auth_salt = 'put your unique phrase here',
     $wordpress_token_secureauth_key = 'put your unique phrase here',

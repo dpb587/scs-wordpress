@@ -4,7 +4,7 @@ set -e
 
 PUPPET_SOURCE="$1"
 
-if [ '' != "$PUPPET_SOURCE" ] ; then
+if [ '' == "$PUPPET_SOURCE" ] ; then
     PUPPET_SOURCE="scs/config/default.pp"
 fi
 
