@@ -1,4 +1,0 @@
-#!/bin/bash
-
-apt-get purge puppet
-apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*

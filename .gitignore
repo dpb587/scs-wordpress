@@ -1,3 +1,5 @@
 /etc
 /mnt
+/scs/runtime
 /var
+/Dockerfile
