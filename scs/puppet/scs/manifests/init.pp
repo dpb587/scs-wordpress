@@ -3,8 +3,6 @@ class scs (
     $http_host = 'localhost',
     $http_path = '/wordpress',
 
-    $database_host = 'localhost',
-    $database_port = '3306',
     $database_user = 'wptest1',
     $database_password = 'wptest1',
     $database_name = 'wptest1',

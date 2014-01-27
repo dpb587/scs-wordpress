@@ -38,7 +38,7 @@ define('DB_USER', '<%= scope['database_user'] %>');
 define('DB_PASSWORD', '<%= scope['database_password'] %>');
 
 /** MySQL hostname */
-define('DB_HOST', '<%= scope['database_host'] %>:<%= scope['database_port'] %>');
+define('DB_HOST', getenv('SCS_REQUIRES_MYSQL'));
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', '<%= scope['database_charset'] %>');

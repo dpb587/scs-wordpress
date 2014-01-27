@@ -1,0 +1,19 @@
+about:
+  title: WordPress Website
+docker:
+  from: 'ubuntu:precise'
+provides:
+  http:
+    description: WordPress Website
+    port: 80
+requires:
+  mysql:
+    description: MySQL Database Server
+volumes:
+  uploads:
+    description: WordPress Uploads
+services:
+  nginx:
+    description: Web Server
+  php-fpm:
+    description: PHP Application Server
