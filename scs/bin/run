@@ -4,6 +4,6 @@ set -e
 
 chown -R scs:scs /scs/mnt/uploads
 
-/scs/scs/bin/update-requires-mysql.sh
+/scs/scs/bin/update-requires-mysql.sh run
 
 exec /usr/local/bin/supervisord -c /scs/etc/supervisor.conf

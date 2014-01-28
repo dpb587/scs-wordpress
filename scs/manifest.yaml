@@ -9,6 +9,7 @@ provides:
 requires:
   mysql:
     description: MySQL Database Server
+    liveupdate: /scs/scs/bin/update-requires-mysql.sh
 volumes:
   uploads:
     description: WordPress Uploads
