@@ -2,7 +2,7 @@
 
 set -e
 
-chown -R scs:scs /scs/mnt/uploads
+chown -R scs:scs /scs-mnt/uploads
 
 /scs/scs/bin/update-requires-mysql.sh run
 

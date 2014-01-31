@@ -170,7 +170,7 @@ class scs (
             ;
         "${wordpress_docroot}/wp-content/uploads" :
             ensure => link,
-            target => '/scs/mnt/uploads',
+            target => '/scs-mnt/uploads',
             ;
     }
 
