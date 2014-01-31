@@ -168,6 +168,10 @@ class scs (
             content => template('scs/wordpress/wp-config.php.erb'),
             mode => 0644,
             ;
+        "${wordpress_docroot}/wp-content/uploads" :
+            ensure => link,
+            target => '/scs/mnt/uploads',
+            ;
     }
 
     if "" != "${http_path}" {
