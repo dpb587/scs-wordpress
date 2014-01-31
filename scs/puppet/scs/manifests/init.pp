@@ -223,7 +223,7 @@ class scs (
 
     scs::plugin {
         'nginx-helper' :
-            source => 'http://downloads.wordpress.org/plugin/nginx-helper.1.7.5.zip',
+            source_zip => 'http://downloads.wordpress.org/plugin/nginx-helper.1.7.5.zip',
             ;
     }
 }
