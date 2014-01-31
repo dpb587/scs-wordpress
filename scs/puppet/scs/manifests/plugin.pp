@@ -16,6 +16,7 @@ define scs::plugin(
 
     file {
         "${scs::wordpress_docroot}/wp-content/plugins/${name}" :
+            ensure => directory,
             owner => 'scs',
             group => 'scs',
             mode => 0755,

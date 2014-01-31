@@ -16,6 +16,7 @@ define scs::theme(
 
     file {
         "${scs::wordpress_docroot}/wp-content/themes/${name}" :
+            ensure => directory,
             owner => 'scs',
             group => 'scs',
             mode => 0755,
