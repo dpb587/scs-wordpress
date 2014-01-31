@@ -23,7 +23,7 @@ define scs::plugin(
     }
 
     exec {
-        "${name}:download" =>
+        "${name}:download" :
             command => $command,
             environment => [
                 "DOWNLOAD=${source}",

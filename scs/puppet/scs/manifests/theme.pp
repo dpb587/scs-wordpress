@@ -23,7 +23,7 @@ define scs::theme(
     }
 
     exec {
-        "${name}:download" =>
+        "${name}:download" :
             command => $command,
             environment => [
                 "DOWNLOAD=${source}",
