@@ -167,10 +167,16 @@ class scs (
             ensure => file,
             content => template('scs/wordpress/wp-config.php.erb'),
             mode => 0644,
+            require => [
+                Exec['wordpress'],
+            ],
             ;
         "${wordpress_docroot}/wp-content/uploads" :
             ensure => link,
             target => '/scs-mnt/uploads',
+            require => [
+                Exec['wordpress'],
+            ],
             ;
     }
 
@@ -183,7 +189,7 @@ class scs (
     }
 
     package {
-        'nginx' :
+        'nginx-light' :
             ensure => installed,
             require => [
                 Exec['apt-source:nginx/stable'],
