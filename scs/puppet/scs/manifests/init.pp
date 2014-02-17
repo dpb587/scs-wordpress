@@ -3,9 +3,9 @@ class scs (
     $http_host = 'localhost',
     $http_path = '/wordpress',
 
-    $database_user = 'wptest1',
-    $database_password = 'wptest1',
-    $database_name = 'wptest1',
+    $database_user = 'wordpress',
+    $database_password = 'wordpress',
+    $database_name = 'wordpress',
     $database_tableprefix = 'wp_',
 
     $wordpress_version = '3.7.1',
