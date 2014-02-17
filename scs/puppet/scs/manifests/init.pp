@@ -84,13 +84,6 @@ class scs (
                 File["${wordpress_docroot}"],
             ],
             ;
-        'wordpress-cleanup' :
-            command => '/scs/scs/bin/wordpress-cleanup',
-            cwd => "${wordpress_docroot}",
-            require => [
-                Exec['wordpress'],
-            ],
-            ;
     }
 
     file {
