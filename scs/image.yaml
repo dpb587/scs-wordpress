@@ -12,7 +12,7 @@ dependency:
     mysql:
       description: MySQL Database Server
       liveupdate:
-        command: /scs/scs/bin/update-requires-mysql.sh
+        command: /scs/scs/bin/update-requirement-mysql.sh
   volume:
     uploads:
       description: WordPress Uploads
