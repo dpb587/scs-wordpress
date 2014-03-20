@@ -8,7 +8,7 @@ class scs (
     $database_name = 'wordpress',
     $database_tableprefix = 'wp_',
 
-    $wordpress_version = '3.7.1',
+    $wordpress_version = '3.8.1',
 
     $wordpress_globals = {},
 
@@ -20,25 +20,25 @@ class scs (
     $wordpress_token_loggedin_salt = 'put your unique phrase here',
     $wordpress_token_nonce_key = 'put your unique phrase here',
     $wordpress_token_nonce_salt = 'put your unique phrase here',
+
+    $wordpress_cleanup = false,
 ) {
-    $wordpress_docroot = "/scs/var/www${http_path}"
+    $wordpress_docroot = "/var/www${http_path}"
 
-    group {
-        'scs' :
-            ensure => present,
-            gid => 1010,
+    file {
+        '/usr/bin/scs-liveupdate-mysql' :
+            ensure => file,
+            source => 'puppet:///modules/scs/scs-liveupdate-mysql',
+            owner => root,
+            group => root,
+            mode => 0755,
             ;
-    }
-
-    user {
-        'scs' :
-            ensure => present,
-            gid => 1010,
-            shell => '/bin/false',
-            uid => 1010,
-            require => [
-                Group['scs'],
-            ],
+        '/usr/bin/scs-runtime-hook-start' :
+            ensure => file,
+            source => 'puppet:///modules/scs/scs-runtime-hook-start',
+            owner => root,
+            group => root,
+            mode => 0755,
             ;
     }
 
@@ -70,12 +70,6 @@ class scs (
                 Exec['apt-source:ondrej/php5'],
             ],
             ;
-        '/usr/bin/easy_install supervisor' :
-            creates => '/usr/bin/supervisord',
-            require => [
-                Package['python-setuptools'],
-            ],
-            ;
         'wordpress' :
             command => "/usr/bin/wget -O- 'http://wordpress.org/wordpress-${wordpress_version}.tar.gz' | /bin/tar -xz --strip-components=1",
             cwd => "${wordpress_docroot}",
@@ -87,73 +81,47 @@ class scs (
     }
 
     file {
-        "/scs/etc" :
+        "/etc/nginx" :
             ensure => directory,
             ;
-        "/scs/etc/supervisor.conf" :
-            ensure => file,
-            content => template('scs/supervisor/supervisor.conf.erb'),
-            ;
-        "/scs/etc/supervisor.d" :
-            ensure => directory,
-            ;
-        "/scs/var" :
-            ensure => directory,
-            ;
-        "/scs/var/log" :
-            ensure => directory,
-            ;
-        "/scs/var/log/supervisord" :
-            ensure => directory,
-            ;
-        "/scs/var/run" :
-            ensure => directory,
-            ;
-        "/scs/var/run/supervisord" :
-            ensure => directory,
-            ;
-
-        "/scs/etc/nginx" :
-            ensure => directory,
-            ;
-        "/scs/etc/nginx/mime.types" :
+        "/etc/nginx/mime.types" :
             ensure => file,
             content => template('scs/nginx/mime.types.erb'),
             ;
-        "/scs/etc/nginx/nginx.conf" :
+        "/etc/nginx/nginx.conf" :
             ensure => file,
             content => template('scs/nginx/nginx.conf.erb'),
             ;
-        "/scs/etc/supervisor.d/nginx.conf" :
+        "/etc/supervisor.d/nginx.conf" :
             ensure => file,
             content => template('scs/nginx/supervisor.conf.erb'),
             ;
-        "/scs/var/log/nginx" :
+        "/var/log/nginx" :
             ensure => directory,
             ;
-        "/scs/var/run/nginx" :
+        "/var/run/nginx" :
             ensure => directory,
             ;
 
-        "/scs/etc/php-fpm" :
+        "/etc/php-fpm" :
             ensure => directory,
             ;
-        "/scs/etc/php-fpm/php-fpm.ini" :
+        "/etc/php-fpm/php-fpm.ini" :
             ensure => file,
             content => template('scs/php-fpm/php-fpm.ini.erb'),
             ;
-        "/scs/var/log/php-fpm" :
+        "/var/log/php-fpm" :
             ensure => directory,
             ;
-        "/scs/var/run/php-fpm" :
+        "/var/run/php-fpm" :
             ensure => directory,
             ;
-        "/scs/etc/supervisor.d/php-fpm.conf" :
+        "/etc/supervisor.d/php-fpm.conf" :
             ensure => file,
             content => template('scs/php-fpm/supervisor.conf.erb'),
             ;
 
-        "/scs/var/www" :
+        "/var/www" :
             ensure => directory,
             ;
         "${wordpress_docroot}/wp-config.php" :
@@ -166,7 +134,7 @@ class scs (
             ;
         "${wordpress_docroot}/wp-content/uploads" :
             ensure => link,
-            target => '/scs-mnt/uploads',
+            target => '/mnt/uploads',
             require => [
                 Exec['wordpress'],
             ],
@@ -210,18 +178,24 @@ class scs (
                 Exec['apt-update'],
             ],
             ;
-        'python-setuptools' :
-            ensure => installed,
-            require => [
-                Exec['apt-update'],
-            ],
-            ;
         'unzip' :
             ensure => installed,
             require => [
                 Exec['apt-update'],
             ],
             ;
+    }
+
+    if $wordpress_cleanup {
+        exec {
+            'wordpress:cleanup' :
+                command => '/bin/rm -fr readme.html license.txt wp-config-sample.php wp-content/themes/twentythirteen wp-content/themes/twentytwelve wp-content/themes/twentyeleven wp-content/themes/twentyten wp-content/plugins/hello.php',
+                cwd => "${wordpress_docroot}",
+                require => [
+                    Exec['wordpress'],
+                ],
+                ;
+        }
     }
 
     scs::plugin {

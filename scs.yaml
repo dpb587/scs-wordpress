@@ -1,0 +1,34 @@
+engine:
+  docker:
+    from: 'scs-base'
+config:
+  method: puppet
+provide:
+  http:
+    description: WordPress Website
+    port: 80
+require:
+  mysql:
+    description: MySQL Database Server
+    liveupdate:
+      command: /scs/scs/bin/update-requirement-mysql.sh
+volume:
+  uploads:
+    description: WordPress Uploads
+logs:
+  - path: /var/log/nginx/error.log
+    type: nginx-error
+  - path: /var/log/nginx/access.log
+    type: nginx-access
+  - path: /var/log/php-fpm/slowlog.log
+    type: php-fpm-slowlog
+  - path: /var/log/php-fpm/error.log
+    type: php-fpm-error
+  - path: /var/log/supervisor/nginx-stdout.log
+    type: nginx-stdout
+  - path: /var/log/supervisor/nginx-stderr.log
+    type: nginx-stderr
+  - path: /var/log/supervisor/php-fpm-stdout.log
+    type: php-fpm-stdout
+  - path: /var/log/supervisor/php-fpm-stderr.log
+    type: php-fpm-stderr

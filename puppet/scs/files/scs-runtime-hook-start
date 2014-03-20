@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+chown -R scs:scs /mnt/uploads
+
+/usr/bin/scs-liveupdate-mysql run

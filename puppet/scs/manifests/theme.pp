@@ -20,6 +20,9 @@ define scs::theme(
             owner => 'scs',
             group => 'scs',
             mode => 0755,
+            require => [
+                Exec['wordpress'],
+            ],
             ;
     }
 

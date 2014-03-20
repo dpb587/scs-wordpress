@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -e
-
-chown -R scs:scs /scs-mnt/uploads
-
-/scs/scs/bin/update-requirement-mysql.sh run
-
-exec /usr/local/bin/supervisord -c /scs/etc/supervisor.conf

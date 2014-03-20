@@ -1,0 +1,5 @@
+[program:php-fpm]
+command = /usr/sbin/php5-fpm -y /etc/php-fpm/php-fpm.ini
+stdout_logfile = /var/log/supervisor/php-fpm-stdout.log
+stderr_logfile = /var/log/supervisor/php-fpm-stderr.log
+stopwaitsecs = 30

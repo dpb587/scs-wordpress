@@ -1,13 +1,13 @@
 daemonize = no
-error_log = /scs/var/log/php-fpm/error.log
+error_log = /var/log/php-fpm/error.log
 emergency_restart_interval = 5s
 emergency_restart_threshold = 4
-pid = /scs/var/run/php-fpm/php-fpm.pid
+pid = /var/run/php-fpm/php-fpm.pid
 
 [default]
 user = scs;
 group = scs;
-listen = /scs/var/run/php-fpm/php-fpm.sock
+listen = /var/run/php-fpm/php-fpm.sock
 listen.owner = scs;
 listen.group = scs;
 listen.mode = 0660
@@ -21,7 +21,7 @@ pm.max_spare_servers = 16
 pm.process_idle_timeout = 60s
 request_terminate_timeout = 15m
 request_slowlog_timeout = 30s
-slowlog = /scs/var/log/php-fpm/slow.log
+slowlog = /var/log/php-fpm/slowlog.log
 security.limit_extensions = .php
 php_flag[cgi.fix_pathinfo] = off
 php_flag[display_errors] = off
