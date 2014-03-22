@@ -22,12 +22,20 @@ define scs::theme(
             mode => 0755,
             require => [
                 Exec['wordpress'],
+                Exec["theme:${name}:purge"],
             ],
             ;
     }
 
     exec {
-        "${name}:download" :
+        "theme:${name}:purge" :
+            command => "/bin/rm -fr ${name}",
+            cwd => "${scs::wordpress_docroot}/wp-content/themes",
+            require => [
+                Exec['wordpress'],
+            ],
+            ;
+        "theme:${name}:download" :
             command => $command,
             environment => [
                 "DOWNLOAD=${source}",

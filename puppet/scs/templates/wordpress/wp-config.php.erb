@@ -92,6 +92,7 @@ define('WPLANG', '');
  * in their development environments.
  */
 define('WP_DEBUG', false);
+define('DISALLOW_FILE_MODS', true);
 
 <% scope['wordpress_globals'].each do | k, v | -%>
 define('<%= k %>', <%= v %>);

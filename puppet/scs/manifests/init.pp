@@ -22,6 +22,8 @@ class scs (
     $wordpress_token_nonce_salt = 'put your unique phrase here',
 
     $wordpress_cleanup = false,
+
+    $plugin_nginxhelper = '1.8',
 ) {
     $wordpress_docroot = "/var/www${http_path}"
 
@@ -198,9 +200,11 @@ class scs (
         }
     }
 
-    scs::plugin {
-        'nginx-helper' :
-            source_zip => 'http://downloads.wordpress.org/plugin/nginx-helper.1.7.5.zip',
-            ;
+    if $plugin_nginxhelper {
+        scs::plugin {
+            'nginx-helper' :
+                source_zip => "http://downloads.wordpress.org/plugin/nginx-helper.${plugin_nginxhelper}.zip",
+                ;
+        }
     }
 }

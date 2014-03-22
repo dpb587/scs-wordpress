@@ -22,12 +22,20 @@ define scs::plugin(
             mode => 0755,
             require => [
                 Exec['wordpress'],
+                Exec["plugin:${name}:purge"],
             ],
             ;
     }
 
     exec {
-        "${name}:download" :
+        "plugin:${name}:purge" :
+            command => "/bin/rm -fr ${name}",
+            cwd => "${scs::wordpress_docroot}/wp-content/plugins",
+            require => [
+                Exec['wordpress'],
+            ],
+            ;
+        "plugin:${name}:download" :
             command => $command,
             environment => [
                 "DOWNLOAD=${source}",

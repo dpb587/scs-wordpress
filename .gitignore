@@ -1,2 +1,4 @@
+/.build
 /compiled.json
 /docker.cid
+/Dockerfile

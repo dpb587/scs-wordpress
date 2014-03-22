@@ -61,10 +61,6 @@ http {
             deny all;
         }
 
-        location ~ ^<%= scope['http_path'] %>/wp-includes/.*\.php {
-            deny all;
-        }
-
         location ~ ^<%= scope['http_path'] %>/wp-content/uploads {
             expires 7d;
         }
