@@ -1,0 +1,11 @@
+extension=newrelic.so
+
+[newrelic]
+newrelic.license = "<%= scope['license'] %>"
+newrelic.appname = "<%= scope['name'] %>"
+newrelic.logfile = "/var/log/newrelic/php.log"
+newrelic.daemon.logfile = "/var/log/newrelic/newrelic-daemon.log"
+newrelic.daemon.ssl = true
+<% scope['options'].each do | k, v | -%>
+newrelic.<%= k %> = <%= v %>
+<% end %>
