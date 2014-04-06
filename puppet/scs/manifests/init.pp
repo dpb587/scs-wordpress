@@ -3,6 +3,15 @@ class scs (
     $http_host = 'localhost',
     $http_path = '/wordpress',
 
+    $smtp_host = undef,
+    $smtp_port = undef,
+    $smtp_tls = 'off',
+    $smtp_tls_trust = '/etc/ssl/certs/ca-certificates.crt',
+    $smtp_from = undef,
+    $smtp_auth = 'off',
+    $smtp_auth_user = undef,
+    $smtp_auth_password = undef,
+
     $database_user = 'wordpress',
     $database_password = 'wordpress',
     $database_name = 'wordpress',
@@ -85,6 +94,12 @@ class scs (
     }
 
     file {
+        "/etc/msmtprc" :
+            ensure => file,
+            content => template('scs/smtp/msmtprc.erb'),
+            mode => 0444,
+            ;
+
         "/etc/nginx" :
             ensure => directory,
             ;
@@ -180,6 +195,13 @@ class scs (
             require => [
                 Exec['apt-source:ondrej/php5'],
                 Exec['apt-update'],
+            ],
+            ;
+        'msmtp' :
+            ensure => installed,
+            require => [
+                Exec['apt-update'],
+                File['/etc/msmtprc'],
             ],
             ;
         'unzip' :

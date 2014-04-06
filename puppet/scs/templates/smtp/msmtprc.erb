@@ -1,0 +1,9 @@
+account default
+host <%= scope['smtp_host'] %>
+port <%= scope['smtp_port'] %>
+tls <%= scope['smtp_tls'] %>
+tls_trust_file <%= scope['smtp_tls_trust'] %>
+from <%= scope['smtp_from'] %>
+auth <%= scope['smtp_auth'] %>
+user <%= scope['smtp_auth_user'] %>
+password <%= scope['smtp_auth_password'] %>

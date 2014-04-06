@@ -27,6 +27,7 @@ php_flag[cgi.fix_pathinfo] = off
 php_flag[display_errors] = off
 php_value[post_max_size] = 8M
 php_value[upload_max_filesize] = 8M
+php_value[sendmail_path] = /usr/bin/msmtp -t
 php_admin_flag[log_errors] = on
 php_admin_value[memory_limit] = 128M
 env[SCS_REQUIRE_MYSQL] = 127.0.0.1:3306
