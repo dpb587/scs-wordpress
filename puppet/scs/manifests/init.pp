@@ -7,6 +7,8 @@ class scs (
     $database_password = 'wordpress',
     $database_name = 'wordpress',
     $database_tableprefix = 'wp_',
+    $database_charset = 'utf8',
+    $database_collate = '',
 
     $wordpress_version = '3.8.1',
 
